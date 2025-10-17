@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Digital Shelf Bookstore</title>
+    <style>
+        /* --- CSS Reset & Global Styles --- */
+        :root {
+            --primary-color: #3f51b5; /* Indigo Blue */
+            --accent-color: #ff9800; /* Amber Orange */
+            --text-color: #333;
+            --light-bg: #f5f5f5;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--white);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--white);
+        }
+
+        .nav-links li {
+            display: inline;
+            margin-left: 20px;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background-color: var(--light-bg);
+            text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #e68900;
+        }
+
+        /* --- Featured Books Grid --- */
+        .featured-section {
+            padding: 40px 0;
+        }
+
+        .featured-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+            color: var(--text-color);
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .book-card {
+            background-color: var(--white);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 200px;
+            background-color: #ccc; /* Placeholder for image */
+            margin-bottom: 10px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+        
+        /* Just for visual appeal - remove in production */
+        .book-cover:nth-child(4n+1) { background-color: #b3e5fc; }
+        .book-cover:nth-child(4n+2) { background-color: #c8e6c9; }
+        .book-cover:nth-child(4n+3) { background-color: #ffccbc; }
+        .book-cover:nth-child(4n+4) { background-color: #ffecb3; }
+
+
+        .book-card h3 {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .book-card p {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--text-color);
+            color: var(--white);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="#" class="logo">The Digital Shelf</a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">Login/Sign Up</a></li>
+                    <li><a href="#">🛒 Cart</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Discover Your Next Great Read</h1>
+                <p>Millions of books, curated just for you. Start exploring today.</p>
+                <a href="#" class="btn">Shop Now</a>
+            </div>
+        </section>
+
+        <section class="featured-section">
+            <div class="container">
+                <h2>Featured Bestsellers</h2>
+                <div class="book-grid">
+                    
+                    <div class="book-card">
+                        <div class="book-cover">
+                            Book Cover 1
+                        </div>
+                        <h3>The AI Revolution</h3>
+                        <p>By Dr. Samantha Lee</p>
+                        <span class="price">$19.99</span>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                    
+                    <div class="book-card">
+                        <div class="book-cover">
+                            Book Cover 2
+                        </div>
+                        <h3>The Silent City</h3>
+                        <p>By Alex J. Thorne</p>
+                        <span class="price">$15.50</span>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+
+                    <div class="book-card">
+                        <div class="book-cover">
+                            Book Cover 3
+                        </div>
+                        <h3>Mindful Habits</h3>
+                        <p>By Chloe P. Reed</p>
+                        <span class="price">$22.00</span>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+
+                    <div class="book-card">
+                        <div class="book-cover">
+                            Book Cover 4
+                        </div>
+                        <h3>History of Code</h3>
+                        <p>By R. S. Johnson</p>
+                        <span class="price">$29.75</span>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 The Digital Shelf. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

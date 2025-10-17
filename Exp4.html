@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        /* --- General Styling & Font --- */
+        :root {
+            --primary-color: #2c3e50; /* Dark Blue */
+            --accent-color: #e74c3c; /* Red for errors */
+            --success-color: #27ae60; /* Green */
+            --light-bg: #ecf0f1;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* --- Form Container --- */
+        .container {
+            background-color: var(--white);
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        /* --- Input Group Styling --- */
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        /* --- Error Message Styling --- */
+        .error-message {
+            color: var(--accent-color);
+            font-size: 0.85em;
+            margin-top: 5px;
+            display: block;
+            height: 1.2em; /* Reserve space to prevent layout shift */
+        }
+        
+        .input-error {
+            border-color: var(--accent-color) !important;
+        }
+
+        /* --- Submit Button --- */
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #34495e;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>User Registration</h2>
+        <form id="registrationForm" onsubmit="return validateForm()">
+            
+            <!-- First Name (Validation Rule 1) -->
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name">
+                <span id="firstNameError" class="error-message"></span>
+            </div>
+
+            <!-- Last Name (Validation Rule 5) -->
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name">
+                <span id="lastNameError" class="error-message"></span>
+            </div>
+
+            <!-- Password (Validation Rule 2) -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Minimum 6 characters">
+                <span id="passwordError" class="error-message"></span>
+            </div>
+
+            <!-- E-mail (Validation Rule 3) -->
+            <div class="form-group">
+                <label for="email">E-mail ID</label>
+                <input type="email" id="email" name="email" placeholder="name@domain.com">
+                <span id="emailError" class="error-message"></span>
+            </div>
+
+            <!-- Mobile Number (Validation Rule 4) -->
+            <div class="form-group">
+                <label for="mobile">Mobile Number</label>
+                <input type="text" id="mobile" name="mobile" placeholder="10 digits only">
+                <span id="mobileError" class="error-message"></span>
+            </div>
+
+            <!-- Address (Validation Rule 5) -->
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" rows="3" placeholder="Enter your full address"></textarea>
+                <span id="addressError" class="error-message"></span>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            // Get form elements
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const password = document.getElementById('password').value;
+            const email = document.getElementById('email').value.trim();
+            const mobile = document.getElementById('mobile').value.trim();
+            const address = document.getElementById('address').value.trim();
+            
+            // Flag to track overall validation status
+            let isValid = true;
+
+            // Helper function to show errors
+            function displayError(fieldId, message) {
+                const inputElement = document.getElementById(fieldId);
+                const errorElement = document.getElementById(fieldId + 'Error');
+                
+                inputElement.classList.remove('input-error'); // Reset previous state
+                errorElement.textContent = '';
+                
+                if (message) {
+                    inputElement.classList.add('input-error');
+                    errorElement.textContent = message;
+                    isValid = false;
+                }
+            }
+            
+            // --- 1. First Name Validation ---
+            // Name should contain only alphabets and length >= 6
+            const nameRegex = /^[a-zA-Z\s]+$/; 
+            
+            if (firstName.length < 6) {
+                displayError('firstName', 'First Name must be at least 6 characters long.');
+            } else if (!nameRegex.test(firstName)) {
+                displayError('firstName', 'First Name can only contain alphabets.');
+            } else {
+                displayError('firstName', '');
+            }
+
+            // --- 2. Last Name Validation (Required Field) ---
+            if (lastName === "") {
+                displayError('lastName', 'Last Name cannot be empty.');
+            } else {
+                displayError('lastName', '');
+            }
+
+            // --- 3. Password Validation ---
+            // Password length should not be less than 6 characters
+            if (password.length < 6) {
+                displayError('password', 'Password must be at least 6 characters long.');
+            } else {
+                displayError('password', '');
+            }
+
+            // --- 4. E-mail ID Validation ---
+            // Must follow the standard pattern name@domain.com
+            // A common regex for email validation
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            
+            if (!emailRegex.test(email)) {
+                displayError('email', 'Enter a valid email address (e.g., name@domain.com).');
+            } else {
+                displayError('email', '');
+            }
+
+            // --- 5. Mobile Number Validation ---
+            // Phone number should contain 10 digits only
+            const mobileRegex = /^\d{10}$/; // Matches exactly 10 digits
+            
+            if (!mobileRegex.test(mobile)) {
+                displayError('mobile', 'Mobile Number must contain exactly 10 digits.');
+            } else {
+                displayError('mobile', '');
+            }
+            
+            // --- 6. Address Validation (Required Field) ---
+            if (address === "") {
+                displayError('address', 'Address cannot be empty.');
+            } else {
+                displayError('address', '');
+            }
+
+            // If isValid is true, the form will submit; otherwise, submission is halted.
+            if (isValid) {
+                // In a real application, you would send the data to a server here.
+                console.log("Form is valid and ready to submit!");
+                
+                // Instead of alert(), we log a success message for a better user experience.
+                alert('Registration successful! (Form submission prevented for demonstration)'); 
+            }
+
+            // Return the validation status to the form's onsubmit handler
+            return isValid; 
+        }
+        
+        // Use a simple custom alert function instead of window.alert
+        // Note: The instruction allows custom modal UI instead of alert/confirm.
+        // For simplicity in a single file HTML/CSS/JS example, I'll define a simple mock alert.
+        function alert(message) {
+            console.log("CUSTOM ALERT: " + message);
+            const alertBox = document.createElement('div');
+            alertBox.style.cssText = `
+                position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                padding: 20px; background: ${isValid ? var(--success-color) : var(--accent-color)}; 
+                color: white; border-radius: 8px; z-index: 10000;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-size: 1.1em;
+            `;
+            alertBox.textContent = message;
+            document.body.appendChild(alertBox);
+            setTimeout(() => document.body.removeChild(alertBox), 3000);
+        }
+    </script>
+</body>
+</html>
